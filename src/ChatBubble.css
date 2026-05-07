@@ -1,0 +1,139 @@
+/* akong-button · Web 样式 · 用 var(--ak-*) 接 @akong/tokens */
+
+.ak-chat-bubble {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ak-space-2);
+  font-family: var(--ak-font-sans);
+  font-weight: var(--ak-weight-medium);
+  letter-spacing: var(--ak-tracking-tight);
+  border: 0;
+  border-radius: var(--ak-radius-full);
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition:
+    background-color var(--ak-duration-fast) var(--ak-ease-out),
+    color var(--ak-duration-fast) var(--ak-ease-out),
+    opacity var(--ak-duration-fast) var(--ak-ease-out);
+  white-space: nowrap;
+  outline: none;
+}
+
+.ak-chat-bubble:focus-visible {
+  outline: 2px solid var(--ak-border-strong);
+  outline-offset: 2px;
+}
+
+.ak-chat-bubble:active:not(:disabled) {
+  opacity: 0.7;
+}
+
+.ak-chat-bubble:disabled,
+.ak-chat-bubble[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+/* === Sizes === */
+.ak-chat-bubble--sm {
+  height: 32px;
+  padding: 0 var(--ak-space-3);
+  font-size: var(--ak-text-sm);
+  min-width: 32px;
+}
+.ak-chat-bubble--md {
+  height: 40px;
+  padding: 0 var(--ak-space-4);
+  font-size: var(--ak-text-base);
+  min-width: 40px;
+}
+.ak-chat-bubble--lg {
+  height: 48px;
+  padding: 0 var(--ak-space-5);
+  font-size: var(--ak-text-md);
+  min-width: 48px;
+}
+
+/* === Variants === */
+.ak-chat-bubble--primary {
+  background: var(--ak-fg);
+  color: var(--ak-fg-inverse);
+}
+.ak-chat-bubble--primary:hover:not(:disabled) {
+  background: var(--ak-gray-11);
+}
+
+.ak-chat-bubble--secondary {
+  background: var(--ak-bg-subtle);
+  color: var(--ak-fg);
+}
+.ak-chat-bubble--secondary:hover:not(:disabled) {
+  background: var(--ak-bg-hover);
+}
+
+.ak-chat-bubble--ghost {
+  background: transparent;
+  color: var(--ak-fg);
+}
+.ak-chat-bubble--ghost:hover:not(:disabled) {
+  background: var(--ak-bg-subtle);
+}
+
+.ak-chat-bubble--destructive {
+  background: var(--ak-accent);
+  color: var(--ak-accent-fg);
+}
+.ak-chat-bubble--destructive:hover:not(:disabled) {
+  background: var(--ak-accent-10);
+}
+
+.ak-chat-bubble--link {
+  background: transparent;
+  color: var(--ak-fg);
+  padding: 0;
+  height: auto;
+  min-width: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--ak-border-strong);
+}
+.ak-chat-bubble--link:hover:not(:disabled) {
+  text-decoration-color: var(--ak-fg);
+}
+
+/* === Modifiers === */
+.ak-chat-bubble--full-width { width: 100%; }
+
+.ak-chat-bubble--loading {
+  pointer-events: none;
+  position: relative;
+  color: transparent !important;
+}
+.ak-chat-bubble--loading::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  color: var(--ak-fg-muted);
+  animation: ak-spin 0.7s linear infinite;
+}
+.ak-chat-bubble--primary.ak-chat-bubble--loading::after,
+.ak-chat-bubble--destructive.ak-chat-bubble--loading::after {
+  color: var(--ak-fg-inverse);
+}
+
+@keyframes ak-spin {
+  to { transform: rotate(360deg); }
+}
+
+.ak-chat-bubble__icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
