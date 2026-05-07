@@ -1,25 +1,82 @@
-/* akong-button · Web 样式 · 用 var(--ak-*) 接 @akong/tokens */
+/* akong-chat-bubble · Web 样式 · 用 var(--ak-*) 接 @akong/tokens */
 
-.ak-chat-bubble {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--ak-space-2);
+/* === Row 容器 (avatar + bubble + 时间 同一行) === */
+.ak-chat-bubble-row {
+  display: flex;
+  width: 100%;
+  margin: var(--ak-space-2) 0;
   font-family: var(--ak-font-sans);
-  font-weight: var(--ak-weight-medium);
-  letter-spacing: var(--ak-tracking-tight);
-  border: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ak-chat-bubble-row--user {
+  justify-content: flex-end;
+}
+
+.ak-chat-bubble-row--assistant {
+  justify-content: flex-start;
+  gap: var(--ak-space-2);
+}
+
+.ak-chat-bubble-row--system {
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* === assistant avatar slot === */
+.ak-chat-bubble__avatar-slot {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  align-self: flex-end; /* 头像贴气泡底 · iMessage 风 */
+  margin-bottom: 18px;  /* 跟 meta 行齐 */
+}
+
+.ak-chat-bubble__avatar {
+  width: 32px;
+  height: 32px;
   border-radius: var(--ak-radius-full);
+  object-fit: cover;
+  display: block;
+}
+
+.ak-chat-bubble__avatar--placeholder {
+  background: var(--ak-bg-subtle);
+}
+
+/* === main 列 (气泡 + meta) === */
+.ak-chat-bubble__main {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+  min-width: 0;
+}
+
+.ak-chat-bubble-row--user .ak-chat-bubble__main {
+  align-items: flex-end;
+}
+
+.ak-chat-bubble-row--assistant .ak-chat-bubble__main {
+  align-items: flex-start;
+}
+
+/* === Bubble 本体 === */
+.ak-chat-bubble {
+  position: relative;
+  padding: var(--ak-space-2) var(--ak-space-3);
+  border-radius: var(--ak-radius-2xl);
+  font-size: var(--ak-text-base);
+  line-height: var(--ak-leading-snug, 1.35);
+  letter-spacing: var(--ak-tracking-normal, 0);
   cursor: pointer;
-  user-select: none;
+  user-select: text;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  transition:
-    background-color var(--ak-duration-fast) var(--ak-ease-out),
-    color var(--ak-duration-fast) var(--ak-ease-out),
-    opacity var(--ak-duration-fast) var(--ak-ease-out);
-  white-space: nowrap;
   outline: none;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  transition: opacity var(--ak-duration-fast) var(--ak-ease-out);
 }
 
 .ak-chat-bubble:focus-visible {
@@ -27,113 +84,182 @@
   outline-offset: 2px;
 }
 
-.ak-chat-bubble:active:not(:disabled) {
+.ak-chat-bubble:active {
+  opacity: 0.85;
+}
+
+/* user 右下角 sm tail */
+.ak-chat-bubble--user {
+  background: var(--ak-fg);
+  color: var(--ak-fg-inverse);
+  border-bottom-right-radius: var(--ak-radius-sm);
+}
+
+/* assistant 左下角 sm tail */
+.ak-chat-bubble--assistant {
+  background: var(--ak-bg-subtle);
+  color: var(--ak-fg);
+  border-bottom-left-radius: var(--ak-radius-sm);
+}
+
+/* system 居中灰小字 · 无气泡 */
+.ak-chat-bubble--system {
+  display: inline-block;
+  padding: var(--ak-space-1) var(--ak-space-3);
+  font-size: var(--ak-text-xs);
+  color: var(--ak-fg-subtle);
+  text-align: center;
+  background: transparent;
+  user-select: text;
+}
+
+.ak-chat-bubble__system-name {
+  font-weight: var(--ak-weight-medium);
+  color: var(--ak-fg-muted);
+}
+
+/* === text variant === */
+.ak-chat-bubble__text {
+  display: block;
+  white-space: pre-line;
+}
+
+/* === image variant · 嵌气泡内 · 占满去 padding === */
+.ak-chat-bubble--image {
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+.ak-chat-bubble--image.ak-chat-bubble--user {
+  background: transparent;
+}
+
+.ak-chat-bubble__image {
+  display: block;
+  max-width: 240px;
+  max-height: 320px;
+  width: auto;
+  height: auto;
+  border-radius: var(--ak-radius-2xl);
+  object-fit: cover;
+}
+
+.ak-chat-bubble--user .ak-chat-bubble__image {
+  border-bottom-right-radius: var(--ak-radius-sm);
+}
+
+.ak-chat-bubble--assistant .ak-chat-bubble__image {
+  border-bottom-left-radius: var(--ak-radius-sm);
+}
+
+/* === file variant === */
+.ak-chat-bubble__file {
+  display: flex;
+  align-items: center;
+  gap: var(--ak-space-2);
+  min-width: 160px;
+}
+
+.ak-chat-bubble__file-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+}
+
+.ak-chat-bubble__file-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ak-chat-bubble__file-name {
+  font-size: var(--ak-text-sm);
+  font-weight: var(--ak-weight-medium);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ak-chat-bubble__file-size {
+  font-size: var(--ak-text-xs);
   opacity: 0.7;
 }
 
-.ak-chat-bubble:disabled,
-.ak-chat-bubble[aria-disabled="true"] {
-  cursor: not-allowed;
-  opacity: 0.4;
+/* === voice variant === */
+.ak-chat-bubble__voice {
+  display: flex;
+  align-items: center;
+  gap: var(--ak-space-2);
+  min-width: 80px;
 }
 
-/* === Sizes === */
-.ak-chat-bubble--sm {
-  height: 32px;
-  padding: 0 var(--ak-space-3);
-  font-size: var(--ak-text-sm);
-  min-width: 32px;
-}
-.ak-chat-bubble--md {
-  height: 40px;
-  padding: 0 var(--ak-space-4);
-  font-size: var(--ak-text-base);
-  min-width: 40px;
-}
-.ak-chat-bubble--lg {
-  height: 48px;
-  padding: 0 var(--ak-space-5);
-  font-size: var(--ak-text-md);
-  min-width: 48px;
-}
-
-/* === Variants === */
-.ak-chat-bubble--primary {
-  background: var(--ak-fg);
-  color: var(--ak-fg-inverse);
-}
-.ak-chat-bubble--primary:hover:not(:disabled) {
-  background: var(--ak-gray-11);
-}
-
-.ak-chat-bubble--secondary {
-  background: var(--ak-bg-subtle);
-  color: var(--ak-fg);
-}
-.ak-chat-bubble--secondary:hover:not(:disabled) {
-  background: var(--ak-bg-hover);
-}
-
-.ak-chat-bubble--ghost {
-  background: transparent;
-  color: var(--ak-fg);
-}
-.ak-chat-bubble--ghost:hover:not(:disabled) {
-  background: var(--ak-bg-subtle);
-}
-
-.ak-chat-bubble--destructive {
-  background: var(--ak-accent);
-  color: var(--ak-accent-fg);
-}
-.ak-chat-bubble--destructive:hover:not(:disabled) {
-  background: var(--ak-accent-10);
-}
-
-.ak-chat-bubble--link {
-  background: transparent;
-  color: var(--ak-fg);
-  padding: 0;
-  height: auto;
-  min-width: 0;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: var(--ak-border-strong);
-}
-.ak-chat-bubble--link:hover:not(:disabled) {
-  text-decoration-color: var(--ak-fg);
-}
-
-/* === Modifiers === */
-.ak-chat-bubble--full-width { width: 100%; }
-
-.ak-chat-bubble--loading {
-  pointer-events: none;
-  position: relative;
-  color: transparent !important;
-}
-.ak-chat-bubble--loading::after {
-  content: "";
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 2px solid currentColor;
-  border-top-color: transparent;
-  color: var(--ak-fg-muted);
-  animation: ak-spin 0.7s linear infinite;
-}
-.ak-chat-bubble--primary.ak-chat-bubble--loading::after,
-.ak-chat-bubble--destructive.ak-chat-bubble--loading::after {
-  color: var(--ak-fg-inverse);
-}
-
-@keyframes ak-spin {
-  to { transform: rotate(360deg); }
-}
-
-.ak-chat-bubble__icon {
+.ak-chat-bubble__voice-icon {
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  flex-shrink: 0;
+}
+
+.ak-chat-bubble__voice-duration {
+  font-size: var(--ak-text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+/* === meta 行 (status + time) === */
+.ak-chat-bubble__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--ak-space-1);
+  margin-top: var(--ak-space-1);
+  font-size: var(--ak-text-xs);
+  color: var(--ak-fg-subtle);
+  min-height: 14px;
+}
+
+.ak-chat-bubble-row--user .ak-chat-bubble__meta {
+  flex-direction: row-reverse;
+}
+
+.ak-chat-bubble__time {
+  font-size: var(--ak-text-xs);
+  color: var(--ak-fg-subtle);
+  font-variant-numeric: tabular-nums;
+}
+
+.ak-chat-bubble__time--system {
+  margin-top: var(--ak-space-1);
+}
+
+/* === status icon === */
+.ak-chat-bubble__status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+}
+
+.ak-chat-bubble__status--failed {
+  color: var(--ak-accent);
+}
+
+.ak-chat-bubble__status--sending {
+  color: var(--ak-fg-subtle);
+}
+
+.ak-chat-bubble__spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  border-top-color: transparent;
+  animation: ak-chat-bubble-spin 0.7s linear infinite;
+}
+
+@keyframes ak-chat-bubble-spin {
+  to { transform: rotate(360deg); }
 }

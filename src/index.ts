@@ -1,2 +1,7 @@
 export { ChatBubble, default } from './ChatBubble'
-export type { ChatBubbleProps, ChatBubbleVariant, ChatBubbleSize } from './ChatBubble.types'
+export type {
+  ChatBubbleProps,
+  ChatBubbleRole,
+  ChatBubbleVariant,
+  ChatBubbleStatus,
+} from './ChatBubble.types'

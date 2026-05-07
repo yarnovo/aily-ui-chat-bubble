@@ -14,62 +14,276 @@
     color: var(--ak-fg);
     margin: 0;
     padding: var(--ak-space-6);
-    max-width: 760px;
+    max-width: 480px;
     margin-inline: auto;
   }
-  h1 { font-size: var(--ak-text-2xl); font-weight: var(--ak-weight-semibold); letter-spacing: var(--ak-tracking-tight); margin: 0 0 var(--ak-space-2); }
-  .sub { color: var(--ak-fg-subtle); font-size: var(--ak-text-sm); margin-bottom: var(--ak-space-8); }
-  h2 { font-size: var(--ak-text-md); font-weight: var(--ak-weight-semibold); margin: var(--ak-space-8) 0 var(--ak-space-3); }
-  .row { display: flex; gap: var(--ak-space-3); flex-wrap: wrap; align-items: center; padding: var(--ak-space-3); background: var(--ak-bg-subtle); border-radius: var(--ak-radius-md); }
-  .toggle { position: fixed; top: 16px; right: 16px; padding: 8px 12px; border-radius: var(--ak-radius-full); background: var(--ak-fg); color: var(--ak-bg); border: 0; font-size: var(--ak-text-sm); cursor: pointer; }
+  h1 {
+    font-size: var(--ak-text-2xl);
+    font-weight: var(--ak-weight-semibold);
+    letter-spacing: var(--ak-tracking-tight);
+    margin: 0 0 var(--ak-space-2);
+  }
+  .sub {
+    color: var(--ak-fg-subtle);
+    font-size: var(--ak-text-sm);
+    margin-bottom: var(--ak-space-6);
+  }
+  h2 {
+    font-size: var(--ak-text-md);
+    font-weight: var(--ak-weight-semibold);
+    margin: var(--ak-space-6) 0 var(--ak-space-2);
+  }
+  .stage {
+    background: var(--ak-bg);
+    border: 1px solid var(--ak-border-subtle);
+    border-radius: var(--ak-radius-lg);
+    padding: var(--ak-space-3);
+  }
+  .toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    padding: 8px 12px;
+    border-radius: var(--ak-radius-full);
+    background: var(--ak-fg);
+    color: var(--ak-bg);
+    border: 0;
+    font-size: var(--ak-text-sm);
+    cursor: pointer;
+    z-index: 100;
+  }
 </style>
 </head>
 <body>
   <button class="toggle" id="t">切换暗色</button>
   <h1>akong ChatBubble</h1>
-  <p class="sub">5 variant · 3 size · 跨 Web/RN · 真值跨端 · 一份 props</p>
+  <p class="sub">iMessage / 微信 / 小红书私信风 · 跨端 · 一份 props</p>
 
-  <h2>Variants (size=md)</h2>
-  <div class="row">
-    <button class="ak-chat-bubble ak-chat-bubble--primary ak-chat-bubble--md"><span>Primary</span></button>
-    <button class="ak-chat-bubble ak-chat-bubble--secondary ak-chat-bubble--md"><span>Secondary</span></button>
-    <button class="ak-chat-bubble ak-chat-bubble--ghost ak-chat-bubble--md"><span>Ghost</span></button>
-    <button class="ak-chat-bubble ak-chat-bubble--destructive ak-chat-bubble--md"><span>Destructive</span></button>
-    <button class="ak-chat-bubble ak-chat-bubble--link"><span>Link</span></button>
+  <h2>1. 单行 text · user / assistant</h2>
+  <div class="stage">
+    <div class="ak-chat-bubble-row ak-chat-bubble-row--assistant">
+      <div class="ak-chat-bubble__avatar-slot">
+        <div class="ak-chat-bubble__avatar ak-chat-bubble__avatar--placeholder"></div>
+      </div>
+      <div class="ak-chat-bubble__main">
+        <div class="ak-chat-bubble ak-chat-bubble--assistant ak-chat-bubble--text">
+          <span class="ak-chat-bubble__text">嗨，我能帮你做点什么？</span>
+        </div>
+      </div>
+    </div>
+    <div class="ak-chat-bubble-row ak-chat-bubble-row--user">
+      <div class="ak-chat-bubble__main">
+        <div class="ak-chat-bubble ak-chat-bubble--user ak-chat-bubble--text">
+          <span class="ak-chat-bubble__text">帮我写一段广告文案</span>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <h2>Sizes (variant=primary)</h2>
-  <div class="row">
-    <button class="ak-chat-bubble ak-chat-bubble--primary ak-chat-bubble--sm"><span>Small</span></button>
-    <button class="ak-chat-bubble ak-chat-bubble--primary ak-chat-bubble--md"><span>Medium</span></button>
-    <button class="ak-chat-bubble ak-chat-bubble--primary ak-chat-bubble--lg"><span>Large</span></button>
+  <h2>2. 长文 + line break · pre-line</h2>
+  <div class="stage">
+    <div class="ak-chat-bubble-row ak-chat-bubble-row--assistant">
+      <div class="ak-chat-bubble__avatar-slot">
+        <div class="ak-chat-bubble__avatar ak-chat-bubble__avatar--placeholder"></div>
+      </div>
+      <div class="ak-chat-bubble__main">
+        <div class="ak-chat-bubble ak-chat-bubble--assistant ak-chat-bubble--text">
+          <span class="ak-chat-bubble__text">好的，我给你写三版：
+
+第一版（理性）：每天 5 分钟，掌控你的英语进度。
+第二版（情绪）：你不是不努力，是没找对方法。
+第三版（行动）：现在就打开 App，开始第一节课。</span>
+        </div>
+        <div class="ak-chat-bubble__meta">
+          <span class="ak-chat-bubble__time">12:35</span>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <h2>States</h2>
-  <div class="row">
-    <button class="ak-chat-bubble ak-chat-bubble--primary ak-chat-bubble--md"><span>Default</span></button>
-    <button class="ak-chat-bubble ak-chat-bubble--primary ak-chat-bubble--md ak-chat-bubble--loading"><span>Loading</span></button>
-    <button class="ak-chat-bubble ak-chat-bubble--primary ak-chat-bubble--md" disabled><span>Disabled</span></button>
+  <h2>3. 极长 single 消息 · 自动换行</h2>
+  <div class="stage">
+    <div class="ak-chat-bubble-row ak-chat-bubble-row--user">
+      <div class="ak-chat-bubble__main">
+        <div class="ak-chat-bubble ak-chat-bubble--user ak-chat-bubble--text">
+          <span class="ak-chat-bubble__text">这是一段非常非常非常长的消息，没有任何换行符，目的是测试 word-break 跟 overflow-wrap 是否能让文本在气泡内自动换行而不撑爆容器 abcdefghijklmnopqrstuvwxyz0123456789</span>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <h2>With Icons</h2>
-  <div class="row">
-    <button class="ak-chat-bubble ak-chat-bubble--primary ak-chat-bubble--md">
-      <span class="ak-chat-bubble__icon">+</span>
-      <span>Add</span>
-    </button>
-    <button class="ak-chat-bubble ak-chat-bubble--secondary ak-chat-bubble--md">
-      <span>Next</span>
-      <span class="ak-chat-bubble__icon">→</span>
-    </button>
-    <button class="ak-chat-bubble ak-chat-bubble--ghost ak-chat-bubble--md" aria-label="search">
-      <span class="ak-chat-bubble__icon">🔍</span>
-    </button>
+  <h2>4. user 三态 status (sending / sent / failed)</h2>
+  <div class="stage">
+    <div class="ak-chat-bubble-row ak-chat-bubble-row--user">
+      <div class="ak-chat-bubble__main">
+        <div class="ak-chat-bubble ak-chat-bubble--user ak-chat-bubble--text">
+          <span class="ak-chat-bubble__text">发送中...</span>
+        </div>
+        <div class="ak-chat-bubble__meta">
+          <span class="ak-chat-bubble__status ak-chat-bubble__status--sending"><span class="ak-chat-bubble__spinner"></span></span>
+          <span class="ak-chat-bubble__time">12:36</span>
+        </div>
+      </div>
+    </div>
+    <div class="ak-chat-bubble-row ak-chat-bubble-row--user">
+      <div class="ak-chat-bubble__main">
+        <div class="ak-chat-bubble ak-chat-bubble--user ak-chat-bubble--text">
+          <span class="ak-chat-bubble__text">已送达</span>
+        </div>
+        <div class="ak-chat-bubble__meta">
+          <span class="ak-chat-bubble__time">12:36</span>
+        </div>
+      </div>
+    </div>
+    <div class="ak-chat-bubble-row ak-chat-bubble-row--user">
+      <div class="ak-chat-bubble__main">
+        <div class="ak-chat-bubble ak-chat-bubble--user ak-chat-bubble--text">
+          <span class="ak-chat-bubble__text">网络断了</span>
+        </div>
+        <div class="ak-chat-bubble__meta">
+          <span class="ak-chat-bubble__status ak-chat-bubble__status--failed">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <circle cx="7" cy="7" r="6.5" fill="currentColor" />
+              <path d="M7 4v3.5" stroke="#fff" stroke-width="1.4" stroke-linecap="round" />
+              <circle cx="7" cy="9.6" r="0.8" fill="#fff" />
+            </svg>
+          </span>
+          <span class="ak-chat-bubble__time">12:36</span>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <h2>Full width</h2>
-  <div class="row" style="display: block;">
-    <button class="ak-chat-bubble ak-chat-bubble--primary ak-chat-bubble--md ak-chat-bubble--full-width"><span>占满整行</span></button>
+  <h2>5. system 居中</h2>
+  <div class="stage">
+    <div class="ak-chat-bubble-row ak-chat-bubble-row--system">
+      <div class="ak-chat-bubble--system">对方撤回了一条消息</div>
+    </div>
+    <div class="ak-chat-bubble-row ak-chat-bubble-row--system">
+      <div class="ak-chat-bubble--system">
+        <span class="ak-chat-bubble__system-name">管理员</span>
+        撤销了 张三 的禁言
+      </div>
+      <div class="ak-chat-bubble__time ak-chat-bubble__time--system">昨天 12:34</div>
+    </div>
+  </div>
+
+  <h2>6. image variant · max-w 240</h2>
+  <div class="stage">
+    <div class="ak-chat-bubble-row ak-chat-bubble-row--assistant">
+      <div class="ak-chat-bubble__avatar-slot">
+        <div class="ak-chat-bubble__avatar ak-chat-bubble__avatar--placeholder"></div>
+      </div>
+      <div class="ak-chat-bubble__main">
+        <div class="ak-chat-bubble ak-chat-bubble--assistant ak-chat-bubble--image">
+          <img class="ak-chat-bubble__image" src="https://picsum.photos/seed/akong/240/180" alt="" />
+        </div>
+        <div class="ak-chat-bubble__meta">
+          <span class="ak-chat-bubble__time">12:40</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>7. file variant · icon + name + size</h2>
+  <div class="stage">
+    <div class="ak-chat-bubble-row ak-chat-bubble-row--user">
+      <div class="ak-chat-bubble__main">
+        <div class="ak-chat-bubble ak-chat-bubble--user ak-chat-bubble--file">
+          <div class="ak-chat-bubble__file">
+            <span class="ak-chat-bubble__file-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M5 2.5h6.5L16 7v9.5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-13a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+                <path d="M11.5 2.5V7H16" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="ak-chat-bubble__file-meta">
+              <span class="ak-chat-bubble__file-name">2026-Q1-OKR.pdf</span>
+              <span class="ak-chat-bubble__file-size">2.3 MB</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>8. voice variant · icon + 时长</h2>
+  <div class="stage">
+    <div class="ak-chat-bubble-row ak-chat-bubble-row--assistant">
+      <div class="ak-chat-bubble__avatar-slot">
+        <div class="ak-chat-bubble__avatar ak-chat-bubble__avatar--placeholder"></div>
+      </div>
+      <div class="ak-chat-bubble__main">
+        <div class="ak-chat-bubble ak-chat-bubble--assistant ak-chat-bubble--voice">
+          <div class="ak-chat-bubble__voice">
+            <span class="ak-chat-bubble__voice-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 6v4M6 4v8M9 5.5v5M12 7v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span class="ak-chat-bubble__voice-duration">12"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ak-chat-bubble-row ak-chat-bubble-row--user">
+      <div class="ak-chat-bubble__main">
+        <div class="ak-chat-bubble ak-chat-bubble--user ak-chat-bubble--voice">
+          <div class="ak-chat-bubble__voice">
+            <span class="ak-chat-bubble__voice-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 6v4M6 4v8M9 5.5v5M12 7v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span class="ak-chat-bubble__voice-duration">1'05"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>9. 完整对话 · 混合 variant</h2>
+  <div class="stage">
+    <div class="ak-chat-bubble-row ak-chat-bubble-row--system">
+      <div class="ak-chat-bubble--system">2026-05-08 周五</div>
+    </div>
+    <div class="ak-chat-bubble-row ak-chat-bubble-row--assistant">
+      <div class="ak-chat-bubble__avatar-slot">
+        <div class="ak-chat-bubble__avatar ak-chat-bubble__avatar--placeholder"></div>
+      </div>
+      <div class="ak-chat-bubble__main">
+        <div class="ak-chat-bubble ak-chat-bubble--assistant ak-chat-bubble--text">
+          <span class="ak-chat-bubble__text">早上好，今天的早报来了～</span>
+        </div>
+      </div>
+    </div>
+    <div class="ak-chat-bubble-row ak-chat-bubble-row--user">
+      <div class="ak-chat-bubble__main">
+        <div class="ak-chat-bubble ak-chat-bubble--user ak-chat-bubble--text">
+          <span class="ak-chat-bubble__text">谢啦</span>
+        </div>
+        <div class="ak-chat-bubble__meta">
+          <span class="ak-chat-bubble__time">08:02</span>
+        </div>
+      </div>
+    </div>
+    <div class="ak-chat-bubble-row ak-chat-bubble-row--user">
+      <div class="ak-chat-bubble__main">
+        <div class="ak-chat-bubble ak-chat-bubble--user ak-chat-bubble--voice">
+          <div class="ak-chat-bubble__voice">
+            <span class="ak-chat-bubble__voice-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 6v4M6 4v8M9 5.5v5M12 7v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span class="ak-chat-bubble__voice-duration">8"</span>
+          </div>
+        </div>
+        <div class="ak-chat-bubble__meta">
+          <span class="ak-chat-bubble__time">08:03</span>
+        </div>
+      </div>
+    </div>
   </div>
 
 <script>

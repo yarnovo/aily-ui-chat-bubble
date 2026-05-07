@@ -1,39 +1,50 @@
 /**
  * 跨端行为契约 · Web + RN 都遵循
  *
- * 写法是"给定 props · 期望 · 该发生 / 不该发生"的纯描述
+ * "给定 props · 模拟 press / long-press · 期望某 callback 触发 / 不触发"
  * 各端测试 import 这份 spec 跑 · 行为强一致
  */
 
+import type { ChatBubbleRole, ChatBubbleVariant, ChatBubbleStatus } from './ChatBubble.types'
+
 export type Outcome = 'callback-fired' | 'callback-skipped'
 
-export interface Scenario {
+export interface PressScenario {
   name: string
-  props: { disabled?: boolean; loading?: boolean }
+  props: { role?: ChatBubbleRole; status?: ChatBubbleStatus }
   /** 模拟一次"按下" · 期望结果 */
   onPressOutcome: Outcome
+  onLongPressOutcome: Outcome
 }
 
 /** 共享场景 · Web + RN 都跑 */
-export const buttonScenarios: Scenario[] = [
+export const bubbleScenarios: PressScenario[] = [
   {
-    name: 'default · 按下触发回调',
-    props: {},
+    name: 'user · default · press 跟 long-press 都触发',
+    props: { role: 'user' },
     onPressOutcome: 'callback-fired',
+    onLongPressOutcome: 'callback-fired',
   },
   {
-    name: 'disabled · 按下不触发',
-    props: { disabled: true },
-    onPressOutcome: 'callback-skipped',
+    name: 'assistant · default · press 跟 long-press 都触发',
+    props: { role: 'assistant' },
+    onPressOutcome: 'callback-fired',
+    onLongPressOutcome: 'callback-fired',
   },
   {
-    name: 'loading · 按下不触发',
-    props: { loading: true },
-    onPressOutcome: 'callback-skipped',
+    name: 'user · status=sending · press 仍触发 (允许点重试 / 取消)',
+    props: { role: 'user', status: 'sending' },
+    onPressOutcome: 'callback-fired',
+    onLongPressOutcome: 'callback-fired',
   },
   {
-    name: 'disabled + loading · 按下不触发',
-    props: { disabled: true, loading: true },
-    onPressOutcome: 'callback-skipped',
+    name: 'user · status=failed · press 仍触发 (允许点重发)',
+    props: { role: 'user', status: 'failed' },
+    onPressOutcome: 'callback-fired',
+    onLongPressOutcome: 'callback-fired',
   },
 ]
+
+export const variantList: ChatBubbleVariant[] = ['text', 'image', 'file', 'voice']
+export const roleList: ChatBubbleRole[] = ['user', 'assistant', 'system']
+export const statusList: ChatBubbleStatus[] = ['sending', 'sent', 'failed']
