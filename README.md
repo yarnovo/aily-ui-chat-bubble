@@ -1,5 +1,7 @@
 # @akong/chat-bubble
 
+> ← 回 [akong design system](https://yarnovo.github.io/akong-core/) 总站
+
 akong ChatBubble · 消息气泡 · iMessage / 微信 / 小红书私信风 · 跨端 (Web + React Native)
 
 ## Demo
