@@ -15,7 +15,7 @@ function formatVoiceDuration(sec: number): string {
   return `${m}'${String(s).padStart(2, '0')}"`
 }
 
-/** 状态 icon · 内联 SVG · 不依赖 @akong/icons (RN 端用 react-native-svg) */
+/** 状态 icon · 内联 SVG · 不依赖 @aily-ui/icons (RN 端用 react-native-svg) */
 function StatusIcon({ status }: { status: NonNullable<ChatBubbleProps['status']> }) {
   if (status === 'sending') {
     return (

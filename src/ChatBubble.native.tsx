@@ -2,7 +2,7 @@
  * akong ChatBubble · React Native 实现
  *
  * Metro bundler 默认按 `.native.tsx` 后缀解析 RN 端 · `.tsx` 解析 Web 端
- * 用方 `import { ChatBubble } from '@akong/chat-bubble'` 自动取对应平台
+ * 用方 `import { ChatBubble } from '@aily-ui/chat-bubble'` 自动取对应平台
  */
 
 import {
@@ -13,7 +13,7 @@ import {
   ActivityIndicator,
   useColorScheme,
 } from 'react-native'
-import { tokens } from '@akong/tokens'
+import { tokens } from '@aily-ui/tokens'
 import type { ChatBubbleProps } from './ChatBubble.types'
 
 function formatVoiceDuration(sec: number): string {
